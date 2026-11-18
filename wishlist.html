@@ -1,0 +1,1145 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Wishlist | Velora Café</title>
+  <link rel="icon" href="images/logo-mark.png">
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:wght@600&family=Poppins:wght@400;600&display=swap"
+    rel="stylesheet">
+  <style>
+    :root {
+      --b: #3e2415;
+      --b2: #6b4129;
+      --a: #b8793f;
+      --c: #f5ece0;
+      --l: #e6d3b8;
+      --t: #2b1a10
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0
+    }
+
+    html {
+      scroll-behavior: smooth
+    }
+
+    body {
+      font-family: 'Poppins', system-ui, sans-serif;
+      background: var(--c);
+      color: var(--t);
+      line-height: 1.6
+    }
+
+    h1,
+    h2,
+    h3,
+    .logo b {
+      font-family: 'Fraunces', Georgia, serif;
+      font-weight: 600
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none
+    }
+
+    .wrap {
+      max-width: 1150px;
+      margin: auto;
+      padding: 0 20px
+    }
+
+    .sec {
+      padding: 52px 0
+    }
+
+    .nav {
+      background: var(--b);
+      color: var(--c);
+      position: sticky;
+      top: 0;
+      z-index: 20
+    }
+
+    .nav .wrap {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 66px
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 22px;
+      color: var(--c)
+    }
+
+    .logo svg {
+      color: var(--l)
+    }
+
+    .links {
+      display: flex;
+      gap: 6px;
+      align-items: center
+    }
+
+    .links a {
+      padding: 6px 12px;
+      border-radius: 20px;
+      font-size: 14px
+    }
+
+    .links a:hover,
+    .links a.on {
+      background: var(--b2)
+    }
+
+    .cnt {
+      background: var(--a);
+      border-radius: 10px;
+      padding: 0 7px;
+      font-size: 12px;
+      margin-left: 3px
+    }
+
+    .burger {
+      display: none;
+      background: none;
+      border: 0;
+      color: var(--c);
+      font-size: 26px
+    }
+
+    .ph svg {
+      width: 100%;
+      height: 100%;
+      display: block
+    }
+
+    .ph img {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover
+    }
+
+    .hero {
+      background: linear-gradient(120deg, rgba(40, 20, 10, .82), rgba(40, 20, 10, .35)), url(images/banner.jpg) center/cover, repeating-linear-gradient(45deg, #6b4129 0 12px, #5a3520 12px 24px);
+      color: #fff;
+      padding: 90px 0
+    }
+
+    .hero h1 {
+      font-size: clamp(34px, 6vw, 60px);
+      line-height: 1.1;
+      max-width: 640px
+    }
+
+    .hero p {
+      max-width: 520px;
+      margin: 18px 0 26px;
+      color: var(--l)
+    }
+
+    .btn {
+      display: inline-block;
+      background: var(--b);
+      color: #fff;
+      border: 2px solid var(--b);
+      padding: 9px 20px;
+      border-radius: 30px;
+      cursor: pointer;
+      font: 600 14px Poppins, sans-serif
+    }
+
+    .btn:hover {
+      background: var(--a);
+      border-color: var(--a)
+    }
+
+    .btn.o {
+      background: none;
+      color: var(--b)
+    }
+
+    .hero .btn.o {
+      color: #fff;
+      border-color: #fff
+    }
+
+    .btn.r {
+      background: #a33;
+      border-color: #a33
+    }
+
+    .btn.sm {
+      padding: 4px 12px;
+      font-size: 12px
+    }
+
+    h2.t {
+      font-size: 32px;
+      margin-bottom: 6px
+    }
+
+    .sub {
+      color: var(--b2);
+      margin-bottom: 26px
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+      gap: 22px
+    }
+
+    .card {
+      background: #fff;
+      border-radius: 14px;
+      overflow: hidden;
+      box-shadow: 0 2px 10px rgba(62, 36, 21, .08)
+    }
+
+    .ph {
+      height: 155px;
+      display: grid;
+      place-items: center;
+      font-size: 62px;
+      background: linear-gradient(135deg, var(--l), #cf9b66);
+      position: relative
+    }
+
+    .heart {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      border: 0;
+      background: #fff;
+      width: 34px;
+      height: 34px;
+      border-radius: 50%;
+      font-size: 17px;
+      color: #bbb;
+      cursor: pointer
+    }
+
+    .heart.on {
+      color: #d33
+    }
+
+    .pb {
+      padding: 16px
+    }
+
+    .pb p {
+      font-size: 13px;
+      color: #6b5a4e;
+      margin: 6px 0
+    }
+
+    .pb small {
+      color: var(--a);
+      font-weight: 600
+    }
+
+    .price {
+      font: 600 20px Fraunces, serif;
+      color: var(--b);
+      margin: 6px 0
+    }
+
+    .opt {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px;
+      margin: 10px 0
+    }
+
+    label {
+      font-size: 12px;
+      font-weight: 600;
+      display: block
+    }
+
+    input,
+    select,
+    textarea {
+      width: 100%;
+      padding: 9px 11px;
+      border: 1px solid #d8c4a8;
+      border-radius: 9px;
+      font: 14px Poppins, sans-serif;
+      background: #fff;
+      margin-top: 3px
+    }
+
+    .chips {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 22px
+    }
+
+    .chip {
+      font: 14px Poppins, sans-serif;
+      border: 1px solid var(--b);
+      background: none;
+      border-radius: 20px;
+      padding: 5px 15px;
+      cursor: pointer
+    }
+
+    .chip.on {
+      background: var(--b);
+      color: #fff
+    }
+
+    .box1 {
+      background: #fff;
+      border-radius: 16px;
+      padding: 28px;
+      max-width: 440px;
+      margin: 44px auto;
+      box-shadow: 0 4px 18px rgba(62, 36, 21, .12)
+    }
+
+    .box1 h2 {
+      margin-bottom: 14px
+    }
+
+    .box1 label {
+      margin-top: 12px
+    }
+
+    .tabs {
+      display: flex;
+      gap: 8px
+    }
+
+    .tabs button {
+      flex: 1
+    }
+
+    .err {
+      color: #b22;
+      font-size: 13px;
+      margin-top: 8px
+    }
+
+    .two {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 34px;
+      align-items: center
+    }
+
+    .row {
+      display: flex;
+      gap: 10px;
+      align-items: center;
+      flex-wrap: wrap
+    }
+
+    .line {
+      display: flex;
+      gap: 14px;
+      align-items: center;
+      background: #fff;
+      border-radius: 12px;
+      padding: 12px 16px;
+      margin-bottom: 12px
+    }
+
+    .line .e {
+      font-size: 34px
+    }
+
+    .line .g {
+      flex: 1
+    }
+
+    .tw {
+      overflow-x: auto;
+      background: #fff;
+      border-radius: 12px;
+      margin-top: 14px
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 14px
+    }
+
+    th,
+    td {
+      padding: 10px 14px;
+      text-align: left;
+      border-bottom: 1px solid #eee;
+      vertical-align: top
+    }
+
+    th {
+      background: var(--l)
+    }
+
+    .bd {
+      padding: 2px 10px;
+      border-radius: 12px;
+      font-size: 12px;
+      background: var(--l);
+      font-weight: 600
+    }
+
+    .bd.Selesai {
+      background: #cfe8cf
+    }
+
+    .bd.Dibatalkan {
+      background: #f2cccc
+    }
+
+    .bd.Diproses {
+      background: #ffe8b3
+    }
+
+    .foot {
+      background: var(--b);
+      color: var(--l);
+      padding: 20px 0 52px;
+      margin-top: 28px;
+      font-size: 12.5px;
+      line-height: 1.5
+    }
+
+    .foot .grid {
+      grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
+      gap: 12px
+    }
+
+    .foot h4 {
+      color: #fff;
+      font-size: 13px;
+      margin-bottom: 2px
+    }
+
+    .foot svg {
+      width: 18px;
+      height: 18px;
+      vertical-align: -3px
+    }
+
+    .ob {
+      margin-top: 8px;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 3px 12px;
+      border-radius: 20px;
+      font-size: 12px;
+      font-weight: 600;
+      background: #fff;
+      color: #2b6b2b
+    }
+
+    .ob i {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: #2fb344;
+      display: inline-block
+    }
+
+    .ob.off {
+      color: #a33
+    }
+
+    .ob.off i {
+      background: #d33
+    }
+
+    .wa {
+      position: fixed;
+      right: 18px;
+      bottom: 18px;
+      z-index: 30;
+      background: #25d366;
+      color: #fff;
+      border-radius: 50px;
+      padding: 10px 16px;
+      font-weight: 600;
+      font-size: 13px;
+      box-shadow: 0 4px 14px rgba(0, 0, 0, .25);
+      display: flex;
+      align-items: center;
+      gap: 6px
+    }
+
+    .wa .ic {
+      stroke: #fff
+    }
+
+    .sold {
+      position: absolute;
+      left: 10px;
+      top: 10px;
+      background: #a33;
+      color: #fff;
+      border-radius: 20px;
+      padding: 2px 12px;
+      font-size: 12px;
+      font-weight: 600;
+      z-index: 2
+    }
+
+    .btn:disabled {
+      opacity: .55;
+      cursor: not-allowed;
+      background: #888;
+      border-color: #888
+    }
+
+    .rw {
+      display: flex;
+      justify-content: space-between;
+      gap: 10px;
+      font-size: 13px;
+      margin: 4px 0
+    }
+
+    .act {
+      display: flex;
+      flex-wrap: nowrap;
+      gap: 8px;
+      align-items: center
+    }
+
+    .act .btn {
+      margin: 0;
+      white-space: nowrap
+    }
+
+    .tw td {
+      vertical-align: middle
+    }
+
+    .th {
+      display: inline-block;
+      position: relative;
+      overflow: hidden;
+      border-radius: 10px;
+      background: linear-gradient(135deg, var(--l), #cf9b66);
+      flex: none;
+      vertical-align: middle
+    }
+
+    .th img {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover
+    }
+
+    .th svg {
+      width: 100%;
+      height: 100%;
+      display: block
+    }
+
+    .pn {
+      display: flex;
+      align-items: center;
+      gap: 10px
+    }
+
+    .lg {
+      height: 50px;
+      width: auto;
+      display: block
+    }
+
+    .hero .wrap {
+      position: relative
+    }
+
+    .hero-logo {
+      position: absolute;
+      right: 30px;
+      top: 50%;
+      transform: translateY(-50%);
+      height: 300px;
+      opacity: .92
+    }
+
+    .hero .btn:not(.o) {
+      background: var(--a);
+      border-color: var(--a)
+    }
+
+    .hero .btn:not(.o):hover {
+      background: #fff;
+      color: var(--b);
+      border-color: #fff
+    }
+
+    @media(max-width:800px) {
+      .hero-logo {
+        display: none
+      }
+    }
+
+    .foot .lg {
+      height: 30px;
+      display: inline-block;
+      vertical-align: middle;
+      margin-right: 4px
+    }
+
+    .side .lg {
+      height: 38px
+    }
+
+    .foot small {
+      display: block;
+      text-align: center;
+      margin-top: 16px;
+      opacity: .7
+    }
+
+    .foot .grid>div {
+      padding-bottom: 6px
+    }
+
+    .foot .ob {
+      display: flex;
+      width: fit-content;
+      max-width: 100%;
+      margin: 8px 0 2px;
+      font-size: 11.5px;
+      padding: 2px 10px;
+      line-height: 1.5
+    }
+
+    .foot .ob+br,
+    .foot br+.ob {
+      margin-top: 6px
+    }
+
+    .toast {
+      position: fixed;
+      bottom: 22px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: var(--b);
+      color: #fff;
+      padding: 11px 22px;
+      border-radius: 30px;
+      z-index: 99
+    }
+
+    .adm {
+      display: grid;
+      grid-template-columns: 230px 1fr;
+      min-height: 100vh
+    }
+
+    .side {
+      background: var(--b);
+      color: var(--l);
+      padding: 20px 14px
+    }
+
+    .side .logo {
+      margin-bottom: 24px;
+      font-size: 20px
+    }
+
+    .side a {
+      display: block;
+      padding: 9px 14px;
+      border-radius: 10px;
+      margin-bottom: 4px
+    }
+
+    .side a:hover,
+    .side a.on {
+      background: var(--b2);
+      color: #fff
+    }
+
+    .am {
+      padding: 26px
+    }
+
+    .am h1 {
+      margin-bottom: 18px
+    }
+
+    .stats {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 16px;
+      margin-bottom: 22px
+    }
+
+    .st {
+      background: #fff;
+      border-radius: 14px;
+      padding: 18px
+    }
+
+    .st b {
+      font: 600 26px Fraunces, serif;
+      display: block;
+      color: var(--b)
+    }
+
+    .bars {
+      display: flex;
+      gap: 12px;
+      align-items: flex-end;
+      height: 180px;
+      background: #fff;
+      border-radius: 14px;
+      padding: 16px
+    }
+
+    .bars div {
+      flex: 1;
+      text-align: center;
+      font-size: 11px;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      height: 100%
+    }
+
+    .bars i {
+      background: var(--a);
+      border-radius: 6px 6px 0 0;
+      display: block;
+      min-height: 2px
+    }
+
+    .mod {
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, .5);
+      display: grid;
+      place-items: center;
+      z-index: 50;
+      padding: 16px
+    }
+
+    .mod .box {
+      background: #fff;
+      border-radius: 16px;
+      padding: 24px;
+      width: 100%;
+      max-width: 420px;
+      max-height: 92vh;
+      overflow-y: auto
+    }
+
+    .mod label {
+      margin-top: 10px
+    }
+
+    .mod .row {
+      margin-top: 16px
+    }
+
+    .rate {
+      display: flex;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 0 2px;
+      margin: 4px 0
+    }
+
+    .rate small,
+    .rate a {
+      white-space: nowrap
+    }
+
+    .rate b {
+      margin-left: 6px;
+      font-size: 13px
+    }
+
+    .rate small {
+      margin-left: 3px;
+      color: #8a7767 !important;
+      font-weight: 400 !important
+    }
+
+    .star {
+      color: #ddd;
+      font-size: 17px
+    }
+
+    .rl {
+      font-size: 12px;
+      margin-left: 8px;
+      text-decoration: underline;
+      color: var(--b2)
+    }
+
+    .rp {
+      display: inline-flex;
+      flex-direction: row-reverse;
+      margin-top: 6px
+    }
+
+    .rp input {
+      position: absolute;
+      opacity: 0;
+      width: 1px;
+      height: 1px
+    }
+
+    .rp label {
+      font-size: 36px;
+      color: #ddd;
+      cursor: pointer;
+      margin: 0;
+      padding: 0 2px;
+      line-height: 1
+    }
+
+    .rp input:checked~label,
+    .rp label:hover,
+    .rp label:hover~label {
+      color: #f5a623
+    }
+
+    .star.on {
+      color: #f5a623
+    }
+
+    .ic {
+      width: 18px;
+      height: 18px;
+      fill: none;
+      stroke: currentColor;
+      stroke-width: 2;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+      vertical-align: -3px;
+      flex: none
+    }
+
+    .iw {
+      position: relative
+    }
+
+    .iw .ic {
+      position: absolute;
+      left: 13px;
+      top: 50%;
+      margin-top: -7px;
+      color: var(--b2)
+    }
+
+    .iw input {
+      padding-left: 42px
+    }
+
+    .nav .ic {
+      vertical-align: -4px;
+      margin-right: 3px
+    }
+
+    [hidden] {
+      display: none !important
+    }
+
+    .seg {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px
+    }
+
+    .seg button {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      margin: 0;
+      padding: 9px
+    }
+
+    .collage {
+      position: relative;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+      padding: 12px
+    }
+
+    .collage .ct {
+      height: 165px;
+      border-radius: 22px;
+      box-shadow: 0 8px 20px rgba(62, 36, 21, .25);
+      border: 4px solid #fff;
+      overflow: hidden
+    }
+
+    .ct.t0 {
+      transform: rotate(-3deg)
+    }
+
+    .ct.t1 {
+      transform: rotate(3deg);
+      margin-top: 26px
+    }
+
+    .ct.t2 {
+      transform: rotate(2deg)
+    }
+
+    .ct.t3 {
+      transform: rotate(-2deg);
+      margin-top: 26px
+    }
+
+    .bdg {
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%);
+      background: var(--b);
+      color: #fff;
+      border-radius: 50%;
+      width: 112px;
+      height: 112px;
+      display: grid;
+      align-content: center;
+      text-align: center;
+      font-size: 19px;
+      box-shadow: 0 6px 16px rgba(0, 0, 0, .3);
+      border: 4px solid #fff;
+      line-height: 1.2
+    }
+
+    .bdg small {
+      font-size: 10px;
+      color: var(--l)
+    }
+
+    @media(max-width:800px) {
+      .wa {
+        padding: 12px;
+        border-radius: 50%;
+        right: 14px;
+        bottom: 14px
+      }
+
+      .wa .ic {
+        width: 24px;
+        height: 24px
+      }
+
+      .wa .wt {
+        display: none
+      }
+
+      .foot {
+        padding-bottom: 76px
+      }
+
+      .burger {
+        display: block
+      }
+
+      .links {
+        display: none;
+        position: absolute;
+        top: 66px;
+        left: 0;
+        right: 0;
+        background: var(--b);
+        flex-direction: column;
+        padding: 12px
+      }
+
+      .links.open {
+        display: flex
+      }
+
+      .two {
+        grid-template-columns: 1fr
+      }
+
+      .adm {
+        grid-template-columns: minmax(0, 1fr)
+      }
+
+      .am {
+        min-width: 0;
+        padding: 16px
+      }
+
+      .side a {
+        padding: 7px 12px;
+        font-size: 14px
+      }
+
+      .side {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 4px
+      }
+
+      .side .logo {
+        width: 100%;
+        margin: 0
+      }
+    }
+
+    @media print {
+      .wa {
+        display: none !important
+      }
+
+      body {
+        background: #fff
+      }
+
+      .side,
+      .nav,
+      .foot,
+      .noprint {
+        display: none !important
+      }
+
+      .adm {
+        display: block
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div id="nav"></div>
+  <main>
+    <section class=sec>
+      <div class=wrap>
+        <h2 class=t>Wishlist</h2>
+        <p class=sub>Produk favorit Anda.</p>
+        <div class=grid id=w></div>
+      </div>
+    </section>
+  </main>
+  <div id="foot"></div>
+  <script>
+    const $ = (s, e = document) => e.querySelector(s), $$ = (s, e = document) => [...e.querySelectorAll(s)];
+    const G = (k, d) => { try { const v = JSON.parse(localStorage.getItem(k)); return v == null ? d : v } catch { return d } }, S = (k, v) => localStorage.setItem(k, JSON.stringify(v));
+    const rp = n => 'Rp ' + Number(n).toLocaleString('id-ID');
+    const LOGO_SVG = '<svg width="34" height="34" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M8 18h26v10a10 10 0 0 1-10 10h-6A10 10 0 0 1 8 28z"/><path d="M34 21h4a5 5 0 0 1 0 10h-5"/><path d="M16 5c-2 3 2 4 0 8M24 5c-2 3 2 4 0 8"/></svg>';
+    const LOGO = '<img class=lg src="images/logo-mark-light.png" alt="Velora Café" onerror="this.outerHTML=LOGO_SVG">';
+    const NM = ['Velora Signature', 'Americano', 'Café Latte', 'Spanish Latte', 'Caramel Macchiato', 'Matcha Latte', 'Chocolate', 'Taro Latte', 'Red Velvet', 'Strawberry Milk', 'Lemon Tea', 'Peach Tea', 'Lychee Tea', 'Thai Tea', 'Chicken Katsu Rice', 'Chicken Teriyaki Rice', 'Chicken Burger', 'Spaghetti Bolognese', 'Chicken Sandwich', 'French Fries', 'Chicken Nugget', 'Butter Croissant', 'Chocolate Cake', 'Brownies', 'Coffee + French Fries', 'Matcha Latte + Brownies', 'Chicken Katsu + Lemon Tea']; const pimg = p => p.img || (NM.includes(p.name) ? 'images/produk-' + (NM.indexOf(p.name) + 1) + '.jpg' : '');
+    const isD = p => p.drink === true || p.drink === 'Ya'; const ov = i => i.temp == '-' ? '' : ` (${i.size}, ${i.temp}, ${i.sugar})`;
+    const UI = '<svg class=ic viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0 1 16 0"/></svg>';
+    const esc = s => String(s).replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
+    const VC = { VELORA10: { t: 'pct', v: 10, max: 20000, d: 'Diskon 10% (maks. Rp 20.000)' }, HEMAT5K: { t: 'amt', v: 5000, min: 30000, d: 'Potongan Rp 5.000 (min. belanja Rp 30.000)' }, GRATISONGKIR: { t: 'ship', d: 'Gratis ongkir untuk Delivery' } };
+    const calc = (sub, fee, code) => { const v = VC[code]; let d = 0, err = ''; if (code && !v) err = 'Kode promo tidak ditemukan.'; else if (v) { if (v.t == 'pct') d = Math.min(Math.round(sub * v.v / 100), v.max); else if (v.t == 'amt') { if (sub < v.min) err = 'Minimal belanja ' + rp(v.min) + '.'; else d = v.v } else if (!fee) err = 'Kode ini hanya untuk pesanan Delivery.'; else d = fee } return { d: err ? 0 : d, err, total: sub + fee - (err ? 0 : d) } };
+    const WA = '6289865432013';
+    const bukaInfo = () => { const n = new Date(new Date().toLocaleString('en-US', { timeZone: 'Asia/Jakarta' })), h = n.getHours() + n.getMinutes() / 60, we = n.getDay() == 0 || n.getDay() == 6, c = we ? 24 : 22, open = h >= 9 && h < c; return { open, txt: open ? 'Buka sekarang · tutup ' + (we ? '23.59' : '22.00') + ' WIB' : 'Tutup · buka ' + (h < 9 ? 'hari ini' : 'besok') + ' 09.00 WIB' } };
+    const badge = () => { const b = bukaInfo(); return `<span class="ob ${b.open ? 'on' : 'off'}"><i></i>${b.txt}</span>` };
+    const chPw = (o, n, k) => { const U = G('users'), u = U.find(x => x.id == G('me')); if (u.pass != o) return 'Password lama salah.'; if (n.length < 6) return 'Password baru minimal 6 karakter.'; if (n != k) return 'Konfirmasi password tidak sama.'; u.pass = n; S('users', U); return '' };
+    function modal(t, h, ok) { const m = document.createElement('div'); m.className = 'mod'; m.innerHTML = `<form class=box><h3>${t}</h3>${h}<div class=row><button class=btn>Simpan</button><button type=button class="btn o" data-x>Batal</button></div></form>`; document.body.append(m); m.onclick = e => { if (e.target == m || e.target.dataset.x != null) m.remove() }; m.firstChild.onsubmit = e => { e.preventDefault(); ok(Object.fromEntries(new FormData(e.target))); m.remove() } }
+    const info = (t, h) => { const m = document.createElement('div'); m.className = 'mod'; m.innerHTML = `<div class=box><h3>${t}</h3>${h}<div class=row><button class=btn data-x>Tutup</button></div></div>`; document.body.append(m); m.onclick = e => { if (e.target == m || e.target.dataset.x != null) m.remove() } };
+    const revList = p => { const V = G('reviews', []).filter(r => r.pid == p.id).reverse(); info('Ulasan: ' + esc(p.name), V.length ? V.map(r => `<div style="border-bottom:1px solid #eee;padding:8px 0"><b>${esc(r.name.split(' ')[0])}</b> <span style="color:#f5a623">${'★'.repeat(r.stars)}</span><small style="color:#8a7767"> ${new Date(r.date).toLocaleDateString('id-ID')}</small><p style="font-size:13px">${esc(r.text || '(tanpa komentar)')}</p></div>`).join('') : '<p>Belum ada ulasan. Jadilah yang pertama setelah memesan!</p>') };
+    const reviewModal = (oid, pid, done) => {
+      const u = me(), P = G('prods').find(x => x.id == pid) || { name: 'Menu' }, cur = G('reviews', []).find(r => r.uid == u.id && r.pid == pid && r.oid == oid);
+      modal('Beri rating: ' + esc(P.name), `<div class=rp>${[5, 4, 3, 2, 1].map(i => `<input type=radio name=stars id=st${i} value=${i} ${i == (cur ? cur.stars : 5) ? 'checked' : ''}><label for=st${i}>★</label>`).join('')}</div><label>Ulasan (opsional)<textarea name=text rows=3 maxlength=300 placeholder="Ceritakan pengalamanmu...">${cur ? esc(cur.text || '') : ''}</textarea></label>`, d => { const L = G('reviews', []); let r = L.find(x => x.uid == u.id && x.pid == pid && x.oid == oid); if (!r) { r = { id: Date.now(), oid, pid, uid: u.id, name: u.name }; L.push(r) } r.stars = +d.stars || 5; r.text = (d.text || '').trim(); r.date = new Date().toISOString(); S('reviews', L); toast('Terima kasih atas ulasanmu!'); if (done) done() })
+    };
+    const SZ = { Small: -3000, Regular: 0, Large: 4000 };
+    if (!G('init2')) {
+      S('init2', 1); S('cats', ['Coffee Series', 'Non Coffee Series', 'Tea Series', 'Food', 'Snacks & Dessert']);
+      S('prods', [['Velora Signature', 'Coffee Series', 25000, 'Perpaduan espresso pilihan dengan susu creamy dan sentuhan rasa manis khas Velora Café.', '☕'], ['Americano', 'Coffee Series', 20000, 'Espresso yang dipadukan dengan air menghasilkan rasa kopi yang kuat, ringan, dan menyegarkan.', '🫖'], ['Café Latte', 'Coffee Series', 23000, 'Kombinasi espresso dan susu steamed dengan tekstur lembut serta rasa kopi yang seimbang.', '🥛'], ['Spanish Latte', 'Coffee Series', 25000, 'Perpaduan espresso, susu segar, dan susu kental manis yang menghasilkan rasa creamy dan manis.', '🧋'], ['Caramel Macchiato', 'Coffee Series', 27000, 'Espresso dengan susu lembut dan sirup caramel yang memberikan sentuhan manis di setiap tegukan.', '🍮'],
+      ['Matcha Latte', 'Non Coffee Series', 25000, 'Minuman matcha dengan susu creamy yang menghadirkan rasa khas teh hijau.', '🍵'], ['Chocolate', 'Non Coffee Series', 23000, 'Cokelat pilihan dengan perpaduan susu yang menghasilkan rasa manis dan lembut.', '🍫'], ['Taro Latte', 'Non Coffee Series', 23000, 'Minuman taro dengan tekstur creamy dan cita rasa manis yang khas.', '💜'], ['Red Velvet', 'Non Coffee Series', 23000, 'Perpaduan rasa red velvet dan susu yang lembut dengan sentuhan manis.', '❤️'], ['Strawberry Milk', 'Non Coffee Series', 23000, 'Susu segar dengan rasa stroberi yang manis dan menyegarkan.', '🍓'],
+      ['Lemon Tea', 'Tea Series', 18000, 'Teh segar dengan perpaduan lemon yang memberikan rasa asam dan manis.', '🍋'], ['Peach Tea', 'Tea Series', 20000, 'Teh dengan aroma dan rasa buah peach yang manis serta menyegarkan.', '🍑'], ['Lychee Tea', 'Tea Series', 20000, 'Perpaduan teh pilihan dengan rasa leci yang manis dan harum.', '🍹'], ['Thai Tea', 'Tea Series', 20000, 'Teh khas Thailand dengan campuran susu yang creamy dan rasa manis.', '🧡'],
+      ['Chicken Katsu Rice', 'Food', 30000, 'Nasi hangat dengan ayam katsu renyah dan saus spesial.', '🍛'], ['Chicken Teriyaki Rice', 'Food', 30000, 'Nasi dengan potongan ayam berbumbu teriyaki yang gurih dan manis.', '🍚'], ['Chicken Burger', 'Food', 28000, 'Roti burger lembut dengan isian ayam crispy, sayuran segar, dan saus spesial.', '🍔'], ['Spaghetti Bolognese', 'Food', 30000, 'Spaghetti dengan saus bolognese bercita rasa gurih dan kaya rempah.', '🍝'], ['Chicken Sandwich', 'Food', 25000, 'Roti sandwich dengan isian ayam, sayuran segar, dan saus creamy.', '🥪'],
+      ['French Fries', 'Snacks & Dessert', 18000, 'Kentang goreng renyah dengan rasa gurih yang cocok menjadi teman santai.', '🍟'], ['Chicken Nugget', 'Snacks & Dessert', 20000, 'Potongan nugget ayam dengan tekstur renyah di luar dan lembut di dalam.', '🍗'], ['Butter Croissant', 'Snacks & Dessert', 20000, 'Pastry berlapis dengan aroma butter dan tekstur renyah.', '🥐'], ['Chocolate Cake', 'Snacks & Dessert', 25000, 'Kue cokelat lembut dengan rasa cokelat yang kaya.', '🍰'], ['Brownies', 'Snacks & Dessert', 20000, 'Brownies cokelat dengan tekstur lembut dan rasa manis yang pas.', '🍫']].map((a, i) => ({ id: i + 1, name: a[0], cat: a[1], price: a[2], desc: a[3], emoji: a[4], drink: i < 15, img: 'images/produk-' + (i + 1) + '.jpg' })));
+      S('users', [{ id: 1, name: 'Admin Velora', email: 'admin@velora.com', pass: 'admin123', role: 'admin', phone: '-', joined: new Date().toISOString() }]); S('orders', []);
+    }
+    if (!G('init3')) { S('init3', 1); const C = G('cats'); if (!C.includes('Velora Combo')) { C.push('Velora Combo'); S('cats', C) } const P = G('prods');[['Coffee + French Fries', 35000, 'Paket hemat: kopi favorit ditemani kentang goreng renyah.', '☕🍟'], ['Matcha Latte + Brownies', 38000, 'Matcha latte creamy dengan brownies cokelat yang lembut.', '🍵🍫'], ['Chicken Katsu + Lemon Tea', 40000, 'Nasi chicken katsu lengkap dengan segarnya lemon tea.', '🍛🍋']].forEach((a, i) => { if (!P.some(p => p.name == a[0])) P.push({ id: Date.now() + i, name: a[0], cat: 'Velora Combo', price: a[1], desc: a[2], emoji: a[3], drink: false, img: 'images/produk-' + (25 + i) + '.jpg' }) }); S('prods', P) }
+    const me = () => G('users', []).find(u => u.id === G('me'));
+    const need = r => { const u = me(); if (!u || (r && u.role !== r)) { location = 'login.html?next=' + location.pathname.split('/').pop() } return u };
+    const toast = m => { const t = document.createElement('div'); t.className = 'toast'; t.textContent = m; document.body.append(t); setTimeout(() => t.remove(), 2200) };
+    const logout = () => { localStorage.removeItem('me'); location = 'login.html' };
+    const cartK = () => 'cart_' + G('me'), wishK = () => 'wish_' + G('me');
+    function nav() {
+      const u = me(), f = location.pathname.split('/').pop() || 'index.html'; let L = [['index', 'Home'], ['about', 'About'], ['menu', 'Menu'], ['contact', 'Contact']];
+      L.push(['wishlist', 'Wishlist ♥'], ['pesanan', 'Pesanan'], ['cart', 'Cart']); if (u && u.role == 'customer') L.push(['profil', 'Profil']);
+      let h = L.map(([p, n]) => `<a href="${p}.html" class="${f == p + '.html' ? 'on' : ''}">${n}${p == 'cart' ? `<span class=cnt>${G(cartK(), []).reduce((s, i) => s + i.qty, 0)}</span>` : ''}</a>`).join('');
+      h += u ? (u.role == 'admin' ? '<a href="admin-dashboard.html">Dashboard</a>' : '') + `<a href="#" onclick="logout()">Keluar (${u.name.split(' ')[0]})</a>` : '<a href="login.html" class="' + (f == 'login.html' ? 'on' : '') + '">' + UI + ' Masuk / Daftar</a>';
+      $('#nav').innerHTML = `<header class=nav><div class=wrap><a href="index.html" class=logo>${LOGO}<b>Velora Café</b></a><button class=burger onclick="$('.links').classList.toggle('open')">☰</button><nav class=links>${h}</nav></div></header>`
+    }
+    function foot() { $('#foot').innerHTML = `<footer class=foot><div class=wrap><div class=grid><div><h4>${LOGO} Velora Café</h4>A Perfect Blend of Taste &amp; Moments.</div><div><h4>Alamat</h4>Jl. Raya Cilegon No. 19,<br>Cilegon, Banten</div><div><h4>Jam Buka</h4>Senin–Jumat: 09.00–22.00 WIB<br>Sabtu–Minggu: 09.00–23.59 WIB${badge()}</div><div><h4>Kontak</h4>WhatsApp: 089865432013<br>Instagram: @veloracafe<br>Email: veloracafe@gmail.com</div></div><small>© Velora Café · <a href="login.html#admin"><u>Login Admin</u></a></small></div></footer><a class=wa target=_blank rel=noopener href="https://wa.me/${WA}?text=${encodeURIComponent('Halo Velora Café, saya ingin memesan')}"><svg class=ic viewBox="0 0 24 24"><path d="M21 12a9 9 0 0 1-13.5 7.8L3 21l1.3-4.4A9 9 0 1 1 21 12z"/></svg><span class=wt>Pesan via WhatsApp</span></a>` }
+    const AS = 'stroke="#4b2e1e" stroke-width="3" stroke-linejoin="round" stroke-linecap="round"'; let _n = 0;
+    const FC = (x, y, c = '#3b2418') => `<g transform="translate(${x},${y})"><circle cx="-9" cy="0" r="2.6" fill="${c}"/><circle cx="9" cy="0" r="2.6" fill="${c}"/><circle cx="-15" cy="5" r="3.6" fill="#ff8fa3" opacity=".75"/><circle cx="15" cy="5" r="3.6" fill="#ff8fa3" opacity=".75"/><path d="M-4 4q4 4 8 0" stroke="${c}" stroke-width="1.8" fill="none" stroke-linecap="round"/></g>`;
+    const HT = (x, y, c = '#ff5a78') => `<path transform="translate(${x},${y})" d="M0 8q-11-9-6-14 4-3 6 2 2-5 6-2 5 5-6 14z" fill="${c}" ${AS}/>`;
+    const PL = `<ellipse cx="100" cy="118" rx="82" ry="24" fill="#fff" ${AS}/><ellipse cx="100" cy="114" rx="62" ry="15" fill="#f3e9db"/>`;
+    const cup = (a, b, x = '', fc) => { const g = 'g' + (_n++); return `<defs><linearGradient id="${g}" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="${a}"/><stop offset="1" stop-color="${b}"/></linearGradient></defs><path d="M118 8l8-3-8 42" stroke="#e58f6c" stroke-width="5" fill="none" stroke-linecap="round"/><path d="M62 46h76l-8 86q-1 7-8 7H78q-7 0-8-7z" fill="url(#${g})" ${AS}/><rect x="58" y="40" width="84" height="10" rx="5" fill="#fff" ${AS}/><rect x="72" y="58" width="12" height="14" rx="3" fill="#fff" opacity=".45"/><rect x="112" y="66" width="11" height="11" rx="3" fill="#fff" opacity=".4"/>${FC(100, 100, fc)}${x}` };
+    const rice = `<path d="M56 112q44-74 88 0z" fill="#fff" ${AS}/>`;
+    const ART = {
+      'Velora Signature': () => cup('#f7e3c4', '#c8844f', HT(150, 28, '#c8844f')),
+      'Americano': () => cup('#7a4a2e', '#2b160c', '', '#fff'),
+      'Café Latte': () => cup('#d9a574', '#f6e8d6'),
+      'Spanish Latte': () => cup('#e7b27a', '#fff1dc', HT(148, 26, '#ffb3c1')),
+      'Caramel Macchiato': () => cup('#e09a4f', '#fff0d8', '<path d="M72 62q10 8 20 0t20 0t16 0" stroke="#b5651d" stroke-width="3.5" fill="none" stroke-linecap="round"/>'),
+      'Matcha Latte': () => cup('#a5d27a', '#e9f4d8', `<path d="M140 44q14-14 22 0-10 12-22 0z" fill="#7bc65a" ${AS}/>`),
+      'Chocolate': () => cup('#8a5a3c', '#5a3322', `<path d="M64 42q36-38 72 0z" fill="#fff" ${AS}/><path d="M84 30q16-8 32 0" stroke="#6b3a24" stroke-width="3" fill="none" stroke-linecap="round"/>`, '#fff'),
+      'Taro Latte': () => cup('#b79be0', '#efe6fb', HT(150, 28, '#d9c6f5')),
+      'Red Velvet': () => cup('#e24a5e', '#ffd0d6', `<path d="M64 42q36-38 72 0z" fill="#fff" ${AS}/>${HT(100, 28)}`),
+      'Strawberry Milk': () => cup('#ff9db0', '#fff0f3', `<path d="M140 36q14 0 12 12l-12 14-12-14q-2-12 12-12z" fill="#ff5a78" ${AS}/>`),
+      'Lemon Tea': () => cup('#ffd45a', '#ffe9a3', `<circle cx="142" cy="46" r="14" fill="#ffe36b" ${AS}/><path d="M142 32v28M128 46h28" stroke="#fff" stroke-width="2"/>`),
+      'Peach Tea': () => cup('#ffae7a', '#ffd9b8', `<circle cx="142" cy="46" r="12" fill="#ffae7a" ${AS}/><path d="M142 36q6-9 13-5" stroke="#6ab04c" stroke-width="3" fill="none" stroke-linecap="round"/>`),
+      'Lychee Tea': () => cup('#ffe6a0', '#fff6dc', `<circle cx="142" cy="46" r="11" fill="#fff6e6" ${AS}/><circle cx="142" cy="46" r="4.5" fill="#f4c6c6"/>`),
+      'Thai Tea': () => cup('#ff8a3c', '#ffc08a', HT(150, 28, '#ff8a3c')),
+      'Chicken Katsu Rice': () => `${PL}${rice}<rect x="38" y="88" width="46" height="19" rx="9" fill="#e8a83a" ${AS} transform="rotate(-18 61 97)"/><rect x="118" y="90" width="46" height="19" rx="9" fill="#e8a83a" ${AS} transform="rotate(14 141 99)"/><path d="M46 92q8-5 16 0M126 96q8-5 16 0" stroke="#fff3d6" stroke-width="3" fill="none" stroke-linecap="round"/>${FC(100, 98)}`,
+      'Chicken Teriyaki Rice': () => `${PL}${rice}<rect x="38" y="88" width="46" height="19" rx="9" fill="#a8561f" ${AS} transform="rotate(-18 61 97)"/><rect x="118" y="90" width="46" height="19" rx="9" fill="#a8561f" ${AS} transform="rotate(14 141 99)"/><circle cx="56" cy="92" r="2.6" fill="#6ab04c"/><circle cx="72" cy="98" r="2.6" fill="#6ab04c"/><circle cx="140" cy="94" r="2.6" fill="#6ab04c"/>${FC(100, 98)}`,
+      'Chicken Burger': () => `<path d="M46 108h108q0 22-24 22H70q-24 0-24-22z" fill="#e8a45a" ${AS}/><rect x="42" y="88" width="116" height="20" rx="10" fill="#7a4326" ${AS}/><path d="M46 88h108l-14 16-12-9-14 11-14-11-12 9z" fill="#ffd34d" ${AS}/><path d="M40 82q10 10 20 0t20 0t20 0t20 0t20 0t20 0v6H40z" fill="#7bc65a" ${AS}/><path d="M44 78q56-62 112 0z" fill="#e8a45a" ${AS}/><g fill="#fff"><ellipse cx="76" cy="52" rx="4" ry="2"/><ellipse cx="124" cy="52" rx="4" ry="2"/><ellipse cx="100" cy="42" rx="4" ry="2"/></g>${FC(100, 66)}`,
+      'Spaghetti Bolognese': () => `${PL}<path d="M44 114q56-74 112 0z" fill="#ffd978" ${AS}/><path d="M64 104q36-28 72 0M72 112q28-20 56 0" stroke="#f0b840" stroke-width="2.5" fill="none"/><path d="M68 94q32-26 64 0q-32 14-64 0z" fill="#d9442f" ${AS}/><circle cx="100" cy="70" r="5" fill="#ffd34d"/>${FC(100, 104)}`,
+      'Chicken Sandwich': () => `<rect x="46" y="104" width="108" height="24" rx="11" fill="#f3d9a0" ${AS}/><rect x="48" y="94" width="104" height="14" rx="7" fill="#e8a83a" ${AS}/><rect x="50" y="86" width="100" height="10" rx="5" fill="#e4503c" ${AS}/><path d="M46 80q9 10 18 0t18 0t18 0t18 0t18 0t18 0v6H46z" fill="#7bc65a" ${AS}/><rect x="46" y="52" width="108" height="30" rx="14" fill="#f3d9a0" ${AS}/><path d="M70 58v18M100 56v22M130 58v18" stroke="#d9b36b" stroke-width="3" stroke-linecap="round"/>${FC(100, 70)}`,
+      'French Fries': () => `<g fill="#ffd34d" ${AS}><rect x="62" y="34" width="13" height="56" rx="5" transform="rotate(-12 68 62)"/><rect x="80" y="26" width="13" height="62" rx="5" transform="rotate(-4 86 57)"/><rect x="100" y="24" width="13" height="64" rx="5" transform="rotate(4 106 56)"/><rect x="118" y="30" width="13" height="58" rx="5" transform="rotate(12 124 59)"/></g><path d="M54 76h92l-10 56H64z" fill="#e8483c" ${AS}/><path d="M60 100h80" stroke="#fff" stroke-width="3" opacity=".5"/>${FC(100, 106)}`,
+      'Chicken Nugget': () => `${PL}<rect x="40" y="82" width="40" height="30" rx="13" fill="#e8a83a" ${AS} transform="rotate(-12 60 97)"/><rect x="108" y="84" width="40" height="30" rx="13" fill="#e8a83a" ${AS} transform="rotate(10 128 99)"/><rect x="72" y="62" width="48" height="36" rx="15" fill="#f0b94a" ${AS}/><ellipse cx="160" cy="100" rx="14" ry="8" fill="#d9442f" ${AS}/>${FC(96, 80)}`,
+      'Butter Croissant': () => `<ellipse cx="44" cy="104" rx="24" ry="14" fill="#e8a84a" ${AS} transform="rotate(-32 44 104)"/><ellipse cx="156" cy="104" rx="24" ry="14" fill="#e8a84a" ${AS} transform="rotate(32 156 104)"/><ellipse cx="70" cy="90" rx="27" ry="27" fill="#eeb257" ${AS}/><ellipse cx="130" cy="90" rx="27" ry="27" fill="#eeb257" ${AS}/><ellipse cx="100" cy="82" rx="30" ry="33" fill="#f3bc63" ${AS}/><path d="M84 54q-6 28 0 56M116 54q6 28 0 56" stroke="#c07a28" stroke-width="2.5" fill="none" stroke-linecap="round"/>${FC(100, 88)}`,
+      'Chocolate Cake': () => `<ellipse cx="100" cy="128" rx="82" ry="13" fill="#fff" ${AS}/><rect x="42" y="102" width="116" height="22" rx="6" fill="#6b3a24" ${AS}/><rect x="42" y="94" width="116" height="9" fill="#f9d9c7" ${AS}/><rect x="42" y="72" width="116" height="23" fill="#6b3a24" ${AS}/><path d="M42 72q0-14 14-14h88q14 0 14 14z" fill="#4a2616" ${AS}/><circle cx="100" cy="48" r="10" fill="#e4304c" ${AS}/><path d="M100 38q4-8 10-6" stroke="#6ab04c" stroke-width="3" fill="none" stroke-linecap="round"/>${FC(100, 86, '#fff')}`,
+      'Brownies': () => `<ellipse cx="100" cy="128" rx="82" ry="13" fill="#fff" ${AS}/><rect x="46" y="86" width="50" height="40" rx="9" fill="#5a3322" ${AS}/><rect x="104" y="86" width="50" height="40" rx="9" fill="#5a3322" ${AS}/><rect x="74" y="44" width="52" height="44" rx="9" fill="#6b3a24" ${AS}/><path d="M80 52q10 8 20 0t20 0" stroke="#fff3d6" stroke-width="3" fill="none" stroke-linecap="round"/>${FC(100, 72, '#fff')}`
+    };
+    const cmb = (a, b, A, B) => () => `<g transform="${A}">${ART[a]()}</g><g transform="${B}">${ART[b]()}</g><circle cx="100" cy="76" r="9" fill="#fff" stroke="#4b2e1e" stroke-width="2.5"/><path d="M95 76h10M100 71v10" stroke="#4b2e1e" stroke-width="2.5" stroke-linecap="round"/>`;
+    ART['Coffee + French Fries'] = cmb('Velora Signature', 'French Fries', 'translate(-6,14) scale(.7)', 'translate(66,22) scale(.66)');
+    ART['Matcha Latte + Brownies'] = cmb('Matcha Latte', 'Brownies', 'translate(-6,14) scale(.7)', 'translate(66,22) scale(.66)');
+    ART['Chicken Katsu + Lemon Tea'] = cmb('Chicken Katsu Rice', 'Lemon Tea', 'translate(0,28) scale(.6)', 'translate(88,10) scale(.72)');
+    const art = p => { const f = ART[p.name]; const b = f ? f() : isD(p) ? cup('#f7e3c4', '#c8844f') : `<text x="100" y="105" font-size="70" text-anchor="middle">${p.emoji || '🍽️'}</text>`; return `<svg viewBox="0 0 200 150" role="img" aria-label="${p.name}"><g fill="#fff" opacity=".7"><circle cx="24" cy="30" r="3"/><circle cx="178" cy="38" r="2.5"/><path d="M170 118l2 5 5 2-5 2-2 5-2-5-5-2 5-2z"/><path d="M26 100l2 4 4 2-4 2-2 4-2-4-4-2 4-2z"/></g>${b}</svg>` };
+
+    const rtg = p => { const V = G('reviews', []).filter(r => r.pid == p.id), v = V.map(r => r.stars), b = 4.7 + (p.id % 3) * .1, n = 76 + (p.id % 9) * 11, t = n + v.length, q = G('orders', []).filter(o => o.status != 'Dibatalkan').reduce((s, o) => s + o.items.filter(i => i.pid == p.id).reduce((a, i) => a + i.qty, 0), 0); return { a: Math.min(5, Math.max(4.7, (b * n + v.reduce((x, y) => x + y, 0)) / t)), n: n + q, rc: V.length } };
+    const ratingHTML = p => { const r = rtg(p), k = Math.round(r.a); return `<div class=rate title="Rating dari pembeli yang sudah memesan">${[1, 2, 3, 4, 5].map(i => `<span class="star ${i <= k ? 'on' : ''}">★</span>`).join('')}<b>${r.a.toFixed(1)}</b><small>${r.n} pesanan</small>${r.rc ? `<a href="#" data-rl class=rl>${r.rc} ulasan</a>` : ''}</div>` };
+    const thumb = (p, w = 64) => `<span class=th style="width:${w}px;height:${Math.round(w * .75)}px">${pimg(p) ? `<img src="${pimg(p)}" alt="" onerror="this.remove()">` : ''}${art(p)}</span>`;
+    function pcard(p) { const w = G(wishK(), []).includes(p.id); return `<div class=card data-id=${p.id}><div class=ph>${pimg(p) ? `<img src="${pimg(p)}" alt="${p.name}" onerror="this.remove()">` : ''}${art(p)}${p.soldout ? '<span class=sold>Habis</span>' : ''}<button class="heart ${w ? 'on' : ''}" data-w>♥</button></div><div class=pb><h3>${p.name}</h3><small>${p.cat}</small>${ratingHTML(p)}<p>${p.desc}</p><div class=price>${rp(p.price)}</div><div class=opt>${isD(p) ? `<label>Ukuran<select data-s>${Object.keys(SZ).map(k => `<option ${k == 'Regular' ? 'selected' : ''}>${k}</option>`).join('')}</select></label><label>Suhu<select data-t><option>Hot</option><option>Ice</option></select></label><label>Gula<select data-g><option>Normal</option><option>Less Sugar</option><option>No Sugar</option></select></label>` : ''}<label>Jumlah<input type=number data-q min=1 value=1></label></div><button class=btn data-a ${p.soldout ? 'disabled' : ''}>${p.soldout ? 'Stok Habis' : '+ Add to Cart'}</button></div></div>` }
+    function bindCards(root) {
+      root.onchange = e => { const c = e.target.closest('.card'); if (!c || !e.target.dataset.s && e.target.dataset.s !== '') return; const p = G('prods').find(x => x.id == c.dataset.id); $('.price', c).textContent = rp(p.price + SZ[$('[data-s]', c).value]) };
+      root.onclick = e => {
+        const c = e.target.closest('.card'), u = me(); if (!c) return; const p = G('prods').find(x => x.id == c.dataset.id);
+        const d = e.target.dataset; if (d.rl != null) { e.preventDefault(); revList(p); return } if (d.w == null && d.a == null) return; if (!u || u.role != 'customer') { toast('Login sebagai customer dulu'); setTimeout(() => location = 'login.html?next=' + location.pathname.split('/').pop(), 900); return }
+        if (e.target.dataset.w != null) { let w = G(wishK(), []); w = w.includes(p.id) ? w.filter(i => i != p.id) : [...w, p.id]; S(wishK(), w); e.target.classList.toggle('on'); toast('Wishlist diperbarui') }
+        if (e.target.dataset.a != null) { if (p.soldout) { toast('Maaf, menu ini sedang habis'); return } const D = !!$('[data-s]', c), s = D ? $('[data-s]', c).value : 'Regular', t = D ? $('[data-t]', c).value : '-', g = D ? $('[data-g]', c).value : '-', q = Math.max(1, +$('[data-q]', c).value || 1); let k = G(cartK(), []); const f = k.find(i => i.pid == p.id && i.size == s && i.temp == t && i.sugar == g); f ? f.qty += q : k.push({ pid: p.id, name: p.name, emoji: p.emoji, size: s, temp: t, sugar: g, qty: q, price: p.price + SZ[s] }); S(cartK(), k); nav(); toast(p.name + ' masuk keranjang') }
+      }
+    }
+    need('customer'); nav(); foot(); const draw = () => { const w = G(wishK(), []); $('#w').innerHTML = G('prods').filter(p => w.includes(p.id)).map(pcard).join('') || '<p>Belum ada favorit. Tekan ♥ di <a href=menu.html><u>menu</u></a>.</p>' }; draw(); bindCards($('#w')); $('#w').addEventListener('click', e => { if (e.target.dataset.w != null) setTimeout(draw, 50) });</script>
+</body>
+
+</html>
