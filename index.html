@@ -515,6 +515,48 @@
       margin: 4px 0
     }
 
+    .vc {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 10px;
+      border: 2px dashed var(--a);
+      border-radius: 12px;
+      padding: 10px 12px;
+      margin: 8px 0;
+      background: #fffaf3
+    }
+
+    .vc.on {
+      background: #fff0dc;
+      border-style: solid
+    }
+
+    .vc.off {
+      opacity: .6;
+      border-color: #bbb
+    }
+
+    .vbn {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      align-items: center
+    }
+
+    .vchip {
+      border: 2px dashed var(--a);
+      background: #fffaf3;
+      border-radius: 30px;
+      padding: 6px 14px;
+      font-size: 13px;
+      cursor: pointer
+    }
+
+    .vchip:hover {
+      background: #fff0dc
+    }
+
     .act {
       display: flex;
       flex-wrap: nowrap;
@@ -1042,6 +1084,9 @@
         <p style="margin-top:20px" id=ob></p>
       </div>
     </section>
+    <section id=vs class=sec style="padding:22px 0" hidden>
+      <div class=wrap id=vb></div>
+    </section>
     <section class=sec style="background:#fff">
       <div class=wrap style="max-width:760px;text-align:center">
         <p style="font-size:18px">Nikmati berbagai pilihan kopi, minuman segar, dan hidangan lezat yang dibuat khusus
@@ -1074,8 +1119,14 @@
     const isD = p => p.drink === true || p.drink === 'Ya'; const ov = i => i.temp == '-' ? '' : ` (${i.size}, ${i.temp}, ${i.sugar})`;
     const UI = '<svg class=ic viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0 1 16 0"/></svg>';
     const esc = s => String(s).replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
-    const VC = { VELORA10: { t: 'pct', v: 10, max: 20000, d: 'Diskon 10% (maks. Rp 20.000)' }, HEMAT5K: { t: 'amt', v: 5000, min: 30000, d: 'Potongan Rp 5.000 (min. belanja Rp 30.000)' }, GRATISONGKIR: { t: 'ship', d: 'Gratis ongkir untuk Delivery' } };
-    const calc = (sub, fee, code) => { const v = VC[code]; let d = 0, err = ''; if (code && !v) err = 'Kode promo tidak ditemukan.'; else if (v) { if (v.t == 'pct') d = Math.min(Math.round(sub * v.v / 100), v.max); else if (v.t == 'amt') { if (sub < v.min) err = 'Minimal belanja ' + rp(v.min) + '.'; else d = v.v } else if (!fee) err = 'Kode ini hanya untuk pesanan Delivery.'; else d = fee } return { d: err ? 0 : d, err, total: sub + fee - (err ? 0 : d) } };
+    const td = () => { const d = new Date(); return d.getFullYear() + '-' + String(d.getMonth() + 1).padStart(2, '0') + '-' + String(d.getDate()).padStart(2, '0') };
+    const vuse = c => G('orders', []).filter(o => o.promo == c && o.status != 'Dibatalkan');
+    const vdesc = v => (v.type == 'pct' ? 'Diskon ' + v.value + '%' + (v.max ? ' (maks. ' + rp(v.max) + ')' : '') : v.type == 'amt' ? 'Potongan ' + rp(v.value) : 'Gratis ongkir untuk Delivery') + (v.min ? ' · min. belanja ' + rp(v.min) : '') + (v.end ? ' · s.d. ' + v.end.split('-').reverse().join('/') : '');
+    const vcheck = (v, sub, fee) => {
+      const U = vuse(v.code), t = td(), u = me(); let r = ''; if (!v.active) r = 'Voucher tidak aktif.'; else if (v.start && t < v.start) r = 'Berlaku mulai ' + v.start.split('-').reverse().join('/') + '.'; else if (v.end && t > v.end) r = 'Voucher sudah kedaluwarsa.'; else if (v.quota > 0 && U.length >= v.quota) r = 'Kuota voucher habis.'; else if (u && U.some(o => o.uid == u.id)) r = 'Sudah pernah kamu pakai.'; else if (v.min && sub < v.min) r = 'Belanja minimal ' + rp(v.min) + '.'; else if (v.type == 'ship' && !fee) r = 'Hanya untuk pesanan Delivery.';
+      const d = r ? 0 : v.type == 'pct' ? Math.min(Math.round(sub * v.value / 100), v.max || 1e12) : v.type == 'amt' ? Math.min(v.value, sub) : fee; return { ok: !r, reason: r, d }
+    };
+    const calc = (sub, fee, code) => { if (!code) return { d: 0, err: '', total: sub + fee }; const v = G('vouchers', []).find(x => x.code == code); if (!v) return { d: 0, err: 'Kode voucher tidak ditemukan.', total: sub + fee }; const r = vcheck(v, sub, fee); return r.ok ? { d: r.d, err: '', total: sub + fee - r.d } : { d: 0, err: r.reason, total: sub + fee } };
     const WA = '6289865432013';
     const bukaInfo = () => { const n = new Date(new Date().toLocaleString('en-US', { timeZone: 'Asia/Jakarta' })), h = n.getHours() + n.getMinutes() / 60, we = n.getDay() == 0 || n.getDay() == 6, c = we ? 24 : 22, open = h >= 9 && h < c; return { open, txt: open ? 'Buka sekarang · tutup ' + (we ? '23.59' : '22.00') + ' WIB' : 'Tutup · buka ' + (h < 9 ? 'hari ini' : 'besok') + ' 09.00 WIB' } };
     const badge = () => { const b = bukaInfo(); return `<span class="ob ${b.open ? 'on' : 'off'}"><i></i>${b.txt}</span>` };
@@ -1098,6 +1149,7 @@
       S('users', [{ id: 1, name: 'Admin Velora', email: 'admin@velora.com', pass: 'admin123', role: 'admin', phone: '-', joined: new Date().toISOString() }]); S('orders', []);
     }
     if (!G('init3')) { S('init3', 1); const C = G('cats'); if (!C.includes('Velora Combo')) { C.push('Velora Combo'); S('cats', C) } const P = G('prods');[['Coffee + French Fries', 35000, 'Paket hemat: kopi favorit ditemani kentang goreng renyah.', '☕🍟'], ['Matcha Latte + Brownies', 38000, 'Matcha latte creamy dengan brownies cokelat yang lembut.', '🍵🍫'], ['Chicken Katsu + Lemon Tea', 40000, 'Nasi chicken katsu lengkap dengan segarnya lemon tea.', '🍛🍋']].forEach((a, i) => { if (!P.some(p => p.name == a[0])) P.push({ id: Date.now() + i, name: a[0], cat: 'Velora Combo', price: a[1], desc: a[2], emoji: a[3], drink: false, img: 'images/produk-' + (25 + i) + '.jpg' }) }); S('prods', P) }
+    if (!G('vouchers')) { S('vouchers', [{ code: 'VELORA10', type: 'pct', value: 10, max: 20000, min: 0, quota: 100, start: '', end: '', active: true }, { code: 'HEMAT5K', type: 'amt', value: 5000, max: 0, min: 30000, quota: 0, start: '', end: '', active: true }, { code: 'GRATISONGKIR', type: 'ship', value: 0, max: 0, min: 0, quota: 0, start: '', end: '', active: true }]) }
     const me = () => G('users', []).find(u => u.id === G('me'));
     const need = r => { const u = me(); if (!u || (r && u.role !== r)) { location = 'login.html?next=' + location.pathname.split('/').pop() } return u };
     const toast = m => { const t = document.createElement('div'); t.className = 'toast'; t.textContent = m; document.body.append(t); setTimeout(() => t.remove(), 2200) };
@@ -1162,7 +1214,7 @@
         if (e.target.dataset.a != null) { if (p.soldout) { toast('Maaf, menu ini sedang habis'); return } const D = !!$('[data-s]', c), s = D ? $('[data-s]', c).value : 'Regular', t = D ? $('[data-t]', c).value : '-', g = D ? $('[data-g]', c).value : '-', q = Math.max(1, +$('[data-q]', c).value || 1); let k = G(cartK(), []); const f = k.find(i => i.pid == p.id && i.size == s && i.temp == t && i.sugar == g); f ? f.qty += q : k.push({ pid: p.id, name: p.name, emoji: p.emoji, size: s, temp: t, sugar: g, qty: q, price: p.price + SZ[s] }); S(cartK(), k); nav(); toast(p.name + ' masuk keranjang') }
       }
     }
-    nav(); foot(); $('#ob').innerHTML = badge(); $('#fav').innerHTML = ['Velora Signature', 'Caramel Macchiato', 'Spanish Latte', 'Matcha Latte'].map(n => G('prods').find(p => p.name == n)).filter(Boolean).map(pcard).join(''); bindCards($('#fav'));</script>
+    nav(); foot(); $('#ob').innerHTML = badge(); const VB = G('vouchers', []).filter(v => v.active && !(v.end && td() > v.end) && !(v.start && td() < v.start) && !(v.quota > 0 && vuse(v.code).length >= v.quota)); $('#vs').hidden = !VB.length; $('#vb').innerHTML = `<div class=vbn><b><svg class=ic viewBox='0 0 24 24'><path d='M3 9a2 2 0 0 0 0 6v3h18v-3a2 2 0 0 1 0-6V6H3z'/><path d='M13 6v12'/></svg> Voucher untukmu:</b>${VB.map(v => `<span class=vchip data-c=${v.code}><b>${v.code}</b> · ${vdesc(v)}</span>`).join('')}</div>`; $('#vb').onclick = e => { const c = e.target.closest('[data-c]'); if (c) { try { navigator.clipboard.writeText(c.dataset.c) } catch (x) { } toast('Kode ' + c.dataset.c + ' disalin. Pakai di Checkout.') } }; $('#fav').innerHTML = ['Velora Signature', 'Caramel Macchiato', 'Spanish Latte', 'Matcha Latte'].map(n => G('prods').find(p => p.name == n)).filter(Boolean).map(pcard).join(''); bindCards($('#fav'));</script>
 </body>
 
 </html>
