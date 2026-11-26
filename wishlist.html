@@ -1131,7 +1131,7 @@
     const cartK = () => 'cart_' + G('me'), wishK = () => 'wish_' + G('me');
     function nav() {
       const u = me(), f = location.pathname.split('/').pop() || 'index.html'; let L = [['index', 'Home'], ['about', 'About'], ['menu', 'Menu'], ['contact', 'Contact']];
-      L.push(['wishlist', 'Wishlist ♥'], ['pesanan', 'Pesanan'], ['cart', 'Cart']); if (u && u.role == 'customer') L.push(['profil', 'Profil']);
+      L.push(['wishlist', 'Wishlist ♥'], ['pesanan', 'Pesanan'], ['cart', '🛒']); if (u && u.role == 'customer') L.push(['profil', 'Profil']);
       let h = L.map(([p, n]) => `<a href="${p}.html" class="${f == p + '.html' ? 'on' : ''}">${n}${p == 'cart' ? `<span class=cnt>${G(cartK(), []).reduce((s, i) => s + i.qty, 0)}</span>` : ''}</a>`).join('');
       h += u ? (u.role == 'admin' ? '<a href="admin-dashboard.html">Dashboard</a>' : '') + `<a href="#" onclick="logout()">Keluar (${u.name.split(' ')[0]})</a>` : '<a href="login.html" class="' + (f == 'login.html' ? 'on' : '') + '">' + UI + ' Masuk / Daftar</a>';
       $('#nav').innerHTML = `<header class=nav><div class=wrap><a href="index.html" class=logo>${LOGO}<b>Velora Café</b></a><button class=burger onclick="$('.links').classList.toggle('open')">☰</button><nav class=links>${h}</nav></div></header>`
